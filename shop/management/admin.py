@@ -37,7 +37,7 @@ admin.site.register(Stock, StockAdmin)
 class ProdStockAdmin(admin.ModelAdmin):
     fields = 'unique_number', 'stock', 'product', 'balance',
     search_fields = 'stock', 'product', 'unique_number'
-    list_display = 'id', 'unique_number', 'stock', 'product', 'balance',
+    list_display = 'unique_number', 'id',  'stock', 'product', 'balance',
     list_filter = 'stock', 'product',
 
 

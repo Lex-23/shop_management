@@ -18,7 +18,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category,
                                  on_delete=models.CASCADE,
                                  related_name='products')
-    name = models.CharField(max_length=200, verbose_name='product')
+    name = models.CharField(unique=True, max_length=200, verbose_name='product')
     description = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -26,6 +26,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def category_name(self):
+        return self.category.name
 
 
 class Stock(models.Model):
@@ -57,7 +60,13 @@ class ProdStock(models.Model):
         verbose_name = 'Products_in_stock'
 
     def __str__(self):
-        return str(self.unique_number)
+        return f'{self.product} #{str(self.unique_number)}'
+
+    def position_info(self):
+        return f'{self.product.name}/{self.product.category.name}'
+
+    def stock_name(self):
+        return self.stock.name
 
 
 class Store(models.Model):
@@ -81,4 +90,19 @@ class OrderStore(models.Model):
                                  related_name='orders')
     count = models.PositiveBigIntegerField(default=0)
 
+    def store_name(self):
+        return self.store.name
 
+    def order_info(self):
+        return (f'#{self.order.unique_number} '
+                f'product:{self.order.product.name}/'
+                f'{self.order.product.category.name}')
+
+    def count_after_sale(self, sale_count):
+        self.count -= sale_count
+
+    def count_after_delivery(self, delivery_count):
+        self.count += delivery_count
+
+    def __str__(self):
+        return f'{self.store} have {self.order}: {self.count} pcs'
