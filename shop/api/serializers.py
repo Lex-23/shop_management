@@ -8,12 +8,14 @@ from management.models import (Category,
 
 
 class CategorySerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Category
         fields = 'id', 'name', 'description', 'url',
 
 
 class ProductSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Product
         fields = ('category_name',
@@ -25,18 +27,21 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class StockSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Stock
         fields = 'id', 'name', 'description', 'url',
 
 
 class StoreSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Store
         fields = 'id', 'name', 'description', 'url',
 
 
 class ProdStockSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = ProdStock
         fields = ('id',
@@ -50,6 +55,7 @@ class ProdStockSerializer(serializers.ModelSerializer):
 
 
 class OrderStoreSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = OrderStore
         fields = ('id',
@@ -58,4 +64,4 @@ class OrderStoreSerializer(serializers.ModelSerializer):
                   'order',
                   'order_info',
                   'count',
-                  'url',)
+                  'url')

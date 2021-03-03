@@ -14,11 +14,13 @@ from .serializers import (CategorySerializer,
                           ProdStockSerializer,
                           OrderStoreSerializer)
 from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     filter_backends = [OrderingFilter, SearchFilter]
     search_fields = ['name']
@@ -30,6 +32,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_fields = ['name', 'category']
@@ -42,6 +45,7 @@ class ProductViewSet(viewsets.ModelViewSet):
 class StockViewSet(viewsets.ModelViewSet):
     queryset = Stock.objects.all()
     serializer_class = StockSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     filter_backends = [OrderingFilter, SearchFilter]
     search_fields = ['name']
@@ -53,6 +57,7 @@ class StockViewSet(viewsets.ModelViewSet):
 class StoreViewSet(viewsets.ModelViewSet):
     queryset = Store.objects.all()
     serializer_class = StoreSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     filter_backends = [OrderingFilter, SearchFilter]
     search_fields = ['name']
@@ -64,6 +69,7 @@ class StoreViewSet(viewsets.ModelViewSet):
 class ProdStockViewSet(viewsets.ModelViewSet):
     queryset = ProdStock.objects.all()
     serializer_class = ProdStockSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_fields = ['stock', 'product']
@@ -76,6 +82,7 @@ class ProdStockViewSet(viewsets.ModelViewSet):
 class OrderStoreViewSet(viewsets.ModelViewSet):
     queryset = OrderStore.objects.all()
     serializer_class = OrderStoreSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_fields = ['store']
